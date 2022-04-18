@@ -1,0 +1,1 @@
+- YAGNI: You aren't gonna need it -> Don't create files or directories if your not gonna use or need them
