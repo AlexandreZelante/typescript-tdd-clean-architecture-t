@@ -1,5 +1,6 @@
 // Local refering to a local cache
 
+// Business rules
 class LocalSavePurchases {
   constructor(private readonly cacheStore: CacheStore) { }
 
@@ -8,10 +9,12 @@ class LocalSavePurchases {
   }
 }
 
+// Generic cache class
 class CacheStore {
   delete: (key: string) => void;
 }
 
+// Mock like -> Instead of doing what CacheStore delete does, it uses some variables to check if everything is working as expected
 class CacheStoreSpy implements CacheStore {
   deleteCallsCount = 0;
   key: string;
@@ -27,6 +30,7 @@ type SutTypes = {
   cacheStore: CacheStoreSpy;
 };
 
+// SUT = System under test
 const makeSut = (): SutTypes => {
   const cacheStore = new CacheStoreSpy();
   const sut = new LocalSavePurchases(cacheStore);
@@ -46,11 +50,6 @@ describe("LocalSavePurchases", () => {
     const { cacheStore, sut } = makeSut();
     await sut.save();
     expect(cacheStore.deleteCallsCount).toBe(1);
-  });
-
-  test("Should call delete with correct key", async () => {
-    const { cacheStore, sut } = makeSut();
-    await sut.save();
     expect(cacheStore.key).toBe('purchases');
   });
 });
