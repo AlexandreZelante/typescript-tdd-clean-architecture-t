@@ -1,5 +1,6 @@
 // Generic cache class
 export class CacheStore {
   delete: (key: string) => void;
-  insert: (key: string) => void;
+  // value should have "any" type because is a generic component
+  insert: (key: string, value: any) => void;
 }
