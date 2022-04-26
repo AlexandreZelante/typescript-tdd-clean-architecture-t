@@ -1,7 +1,8 @@
 // Local refers to a local cache
 import { CacheStore } from '@/data/protocols/cache';
 import { LocalSavePurchases } from '@/data/usecases'
-import { SavePurchases } from '@/domain';
+import { SavePurchases } from '@/domain/usecases';
+import { mockPurchases } from '@/data/tests'
 
 
 // Mock like -> Instead of doing what CacheStore delete does, it uses some variables to check if everything is working as expected
@@ -31,16 +32,6 @@ class CacheStoreSpy implements CacheStore {
     jest.spyOn(CacheStoreSpy.prototype, 'insert').mockImplementationOnce(() => { throw new Error });
   }
 }
-
-const mockPurchases = (): Array<SavePurchases.Params> => [{
-  id: '1',
-  date: new Date(),
-  value: 50
-}, {
-  id: '2',
-  date: new Date(),
-  value: 70
-}]
 
 type SutTypes = {
   sut: LocalSavePurchases;
