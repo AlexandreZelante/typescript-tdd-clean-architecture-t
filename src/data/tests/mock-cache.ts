@@ -1,5 +1,6 @@
 import { SavePurchases } from "@/domain/usecases/save-purchases";
 import { CacheStore } from "@/data/protocols/cache/cache-store";
+import { LoadPurchases } from "@/domain/usecases";
 
 // Mock like -> Instead of doing what CacheStore delete does, it uses some variables to check if everything is working as expected
 export class CacheStoreSpy implements CacheStore {
@@ -8,10 +9,13 @@ export class CacheStoreSpy implements CacheStore {
   insertKey: string;
   fetchKey: string;
   insertValues: Array<SavePurchases.Params> = [];
+  fetchResult: any;
 
-  fetch(key: string): void {
+  fetch(key: string): any {
     this.actions.push(CacheStoreSpy.Action.fetch);
     this.fetchKey = key;
+
+    return this.fetchResult;
   }
 
   delete(key: string): void {
