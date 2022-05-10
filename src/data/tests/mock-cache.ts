@@ -1,10 +1,11 @@
 import { SavePurchases } from "@/domain/usecases/save-purchases";
 import { CacheStore } from "@/data/protocols/cache/cache-store";
-import { LoadPurchases } from "@/domain/usecases";
+
+const maxAgeInDays = 3;
 
 export const getCacheExpirationDate = (timestamp: Date): Date => {
   const maxCacheAge = new Date(timestamp);
-  maxCacheAge.setDate(timestamp.getDate() - 3)
+  maxCacheAge.setDate(timestamp.getDate() - maxAgeInDays)
   return maxCacheAge
 }
 
