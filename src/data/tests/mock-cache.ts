@@ -2,6 +2,12 @@ import { SavePurchases } from "@/domain/usecases/save-purchases";
 import { CacheStore } from "@/data/protocols/cache/cache-store";
 import { LoadPurchases } from "@/domain/usecases";
 
+export const getCacheExpirationDate = (timestamp: Date): Date => {
+  const maxCacheAge = new Date(timestamp);
+  maxCacheAge.setDate(timestamp.getDate() - 3)
+  return maxCacheAge
+}
+
 // Mock like -> Instead of doing what CacheStore delete does, it uses some variables to check if everything is working as expected
 export class CacheStoreSpy implements CacheStore {
   actions: Array<CacheStoreSpy.Action> = []
